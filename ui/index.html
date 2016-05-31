@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/next.css">
+    <link rel="stylesheet" href="css/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="lib/bootgrid/bootgrid.css">
+    <link rel="stylesheet" href="lib/select2/select2.min.css">
+    <link rel="stylesheet" href="css/app.css">
+
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                class="icon-bar"></span><span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"><img src="css/white.png" alt="Cisco Cloud"></a>
+    </div>
+
+</nav>
+
+<div class="container">
+    <div class="sidebar col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Inventory</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-unstyled">
+                    <li><a class="menuitem"  onclick="Host.showList()" style="cursor: pointer;">Host (<span id="hostCount"><div
+                            class="loader"></div></span>)</a></li>
+                    <li><a class="menuitem"  onclick="Networkdevice.showList()" style="cursor: pointer;">Network Device (<span id="networkDeviceCount"><div
+                            class="loader"></div></span>)</a></li>
+                    <li><a class="menuitem"  onclick="Location.showList()" style="cursor: pointer;">Location (<span id="locationCount"><div
+                            class="loader"></div></span>)</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Policy</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-unstyled">
+                    <li><a class="menuitem" onclick="Application.showList()" style="cursor: pointer;">Application (<span id="applicationCount"><div
+                            class="loader"></div></span>)</a></li>
+                    <li><a class="menuitem" onclick="Policy.showList()" style="cursor: pointer;">Policy (<span id="policyCount"><div
+                            class="loader"></div></span>)</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="col-md-9">
+
+        <ul class="nav nav-tabs nav-justified">
+            <li class="active"><a data-toggle="tab" href="#topology">Topology</a></li>
+            <li><a data-toggle="tab" href="#host" id="networkHost">Network Host</a></li>
+
+        </ul>
+
+        <div class="tab-content">
+            <div id="topology" class="tab-pane fade in active">
+                <div class="row">
+                    <div class="col-md-11">
+                        <div id="topo-container" class="center-block"><div
+                                class="loader2"></div></div>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-primary btn btn-primary pull-right topobutton"
+                                onClick="Host.showPhysicalTopology();">
+                            Show full topology
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            <div id="host" class="tab-pane fade in ">
+                <div class="panel panel-default">
+                    <div id="host-header" class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <select class="form-control" id="sourceDD">
+                                    <option>--Source--</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-control" id="targetDD">
+                                    <option>--Destination--</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <button onclick="Host.showTopology()" class="btn btn-primary">Get Topology</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="content ">
+                            <div id="tableHolder">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Item Detail</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="detailHolder">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--jquery plugins-->
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="css/bootstrap/js/bootstrap.js"></script>
+
+<script src="lib/bootgrid/bootgrid.js"></script>
+<script src="lib/underscore-min.js"></script>
+<script src="lib/handlebars-v3.0.3.js"></script>
+<script src="lib/select2/select2.min.js"></script>
+<script src="lib/next.js"></script>
+
+<script src="js/utils/stringUtil.js"></script>
+<script src="js/utils/ajaxUtil.js"></script>
+<script src="js/utils/tableIUtil.js"></script>
+<script src="js/utils/topologyUtil.js"></script>
+
+<script src="js/inventory/host.js"></script>
+<script src="js/inventory/location.js"></script>
+<script src="js/inventory/networkdevice.js"></script>
+
+<script src="js/policy/application.js"></script>
+<script src="js/policy/policy.js"></script>
+
+<script src="js/app.js"></script>
+
+
+<script type="text/x-handlebars" id="detailtable">
+    <table id="modaltable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Key</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {{#each .}}
+        <tr>
+            <td>{{camelCase @key}}</td>
+            <td>{{this}}</td>
+        </tr>
+        {{/each}}
+
+        </tbody>
+    </table>
+</script>
+
+<script type="text/x-handlebars" id="maintable">
+    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            {{#each columns}}
+            <th>{{camelCase this}}</th>
+            {{/each}}
+        </tr>
+        </thead>
+
+        <tbody>
+        {{#each rows}}
+
+        <tr>
+            {{#each .}}
+            {{#ifCond @key "id"}}
+            <td><a href="#" class="detaillink" id="{{this}}"><i title="View More Details"
+                                                                class="glyphicon glyphicon-new-window"></i></a></td>
+            {{else}}
+            <td>{{this}}</td>
+            {{/ifCond}}
+            {{/each}}
+        </tr>
+
+        {{/each}}
+        </tbody>
+    </table>
+</script>
+
+<script type="text/x-handlebars" id="dropdownId">
+    {{#each .}}
+    <option value="{{id}}">{{text}}</option>
+    {{/each}}
+</script>
+
+<script>
+    app.init();
+    function getTopology() {
+        var source = $('#sourceDD  option:selected').text();
+        var target = $('#targetDD  option:selected').text();
+        host.showTopology(source, target);
+    }
+</script>
+</body>
+</html>

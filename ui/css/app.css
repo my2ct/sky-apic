@@ -1,0 +1,28 @@
+.table {
+    table-layout: fixed;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    overflow-wrap: break-word;
+}
+
+.topobutton {
+    margin-top: 10px;
+    margin-bottom: -10px;
+    z-index: -1;
+}
+
+.loader {
+    background-image: url("ajax-loader.gif");
+    width:16px;
+    height: 14px;
+    display: inline-block;
+}
+
+.loader2 {
+    background-image: url("ajax-loader.gif");
+    width:16px;
+    height: 14px;
+    margin-top: 200px;
+    margin-left: 400px;
+}
