@@ -1,0 +1,16 @@
+{
+  "bolero": true,
+  "normandy": false,
+  "centralItaly": true,
+  "germanyDefeated": false,
+  "japanDefeated": false,
+  "vp": { "uk": 4, "us": 6, "ussr": 3 },
+  "usEurLeadership": false,
+  "ukPacLeadership": false,
+  "trinity": false,
+  "conference": 2,
+  "cardsInHand": 6,
+  "rooseveltChurchill": "neutral",
+  "ussrPacificFlag": false,
+  "ussrABombFlag": false
+}
